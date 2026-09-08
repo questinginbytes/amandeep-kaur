@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amandeep Kaur — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --yellow:#f5d400;
+    --black:#111111;
+    --white:#ffffff;
+    --pink:#e6197a;
+    --gap:0;
+    --header-h:84px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:'Inter', Arial, sans-serif;
+    color:var(--black);
+    background:var(--white);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 48px;
+    position:sticky;
+    top:0;
+    background:var(--white);
+    z-index:100;
+  }
+  .logo{
+    font-family:'Mrs Saint Delafield', cursive;
+    font-size:2.4rem;
+    line-height:1;
+    letter-spacing:0.5px;
+  }
+  .logo .cursor{
+    display:inline-block;
+    margin-left:2px;
+    animation:blink 1s step-start infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+  nav ul{
+    display:flex;
+    list-style:none;
+    gap:40px;
+  }
+  nav a{
+    text-decoration:none;
+    color:var(--black);
+    font-size:0.95rem;
+    font-weight:500;
+    letter-spacing:0.3px;
+    cursor:pointer;
+    transition:color .2s ease;
+  }
+  nav a:hover{ color:#888; }
+  nav a.active{ color:var(--yellow); }
+
+  /* ---------- PAGE SWITCHING ---------- */
+  .page{ display:none; }
+  .page.active{ display:block; }
+
+  /* ---------- HATS: ACCORDION STRIP ---------- */
+  .hats-page-wrap{
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - var(--header-h));
+    height: calc(100svh - var(--header-h));
+  }
+  .strip-row{
+    display:flex;
+    width:100%;
+    flex: 1;
+    overflow:hidden;
+  }
+  .strip{
+    position:relative;
+    flex:1;
+    min-width:60px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:flex .55s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .strip:hover, .strip.is-open{ flex:6; }
+  .strip img,
+  .strip .placeholder-fill{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+  
+  .strip .placeholder-fill{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    align-items:flex-start;
+    padding:36px;
+    color:var(--white);
+  }
+  
+  .strip-heading {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    margin-bottom: 0px;
+    transition: margin-bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .strip:hover .strip-heading, .strip.is-open .strip-heading {
+    margin-bottom: 12px;
+  }
+  
+  .strip-desc-wrap {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .strip:hover .strip-desc-wrap, .strip.is-open .strip-desc-wrap {
+    grid-template-rows: 1fr;
+  }
+  
+  .strip-desc {
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.4s ease 0.08s, transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    width: 100%;
+    max-width: 650px;
+    font-size: 2.1rem;
+    line-height: 1.25;
+    font-weight: 600;
+    white-space: normal;
+    text-transform: none;
+    letter-spacing: -0.5px;
+  }
+  
+  .strip:hover .strip-desc, .strip.is-open .strip-desc {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Colors for hats strips & footer cards */
+  .card-bg-1{ background:#e8180c; }
+  .card-bg-2{ background:#0b0b0b; }
+  .card-bg-3{ background:#e6197a; }
+  .card-bg-4{ background:#9aa3ad; }
+  .card-bg-5{ background:#1c3f5f; }
+  .card-bg-6{ background:#2b2b2b; }
+
+  /* ---------- HATS FOOTER (GLOBAL) ---------- */
+  .hats-section-title {
+    text-align: center;
+    padding: 140px 24px 32px;
+    background: var(--white);
+    color: var(--black);
+  }
+  .hats-section-title .main-title {
+    font-family: 'Mrs Saint Delafield', cursive;
+    font-size: 3.5rem;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .hats-section-title .email-link {
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #666;
+  }
+  .hats-section-title a {
+    color: var(--black);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease;
+  }
+  .hats-section-title a:hover {
+    color: var(--yellow);
+  }
+
+  .hats-footer {
+    width: 100%;
+    height: 220px;
+    display: flex;
+    overflow: hidden;
+  }
+  .hats-footer-strip {
+    position: relative;
+    flex: 1;
+    min-width: 45px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: flex .55s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .hats-footer-strip:hover, .hats-footer-strip.is-open { flex: 4; }
+  .hats-footer-fill {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px;
+    color: var(--white);
+  }
+  .hats-footer-heading {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    margin-top: 0px;
+    transition: margin-top 0.3s ease;
+  }
+  .hats-footer-strip:hover .hats-footer-heading, .hats-footer-strip.is-open .hats-footer-heading {
+    margin-bottom: 6px;
+  }
+  .hats-footer-desc-wrap {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .hats-footer-strip:hover .hats-footer-desc-wrap, .hats-footer-strip.is-open .hats-footer-desc-wrap {
+    grid-template-rows: 1fr;
+  }
+  .hats-footer-desc {
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s ease 0.05s, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    width: 100%;
+    max-width: 320px;
+    font-size: 0.95rem;
+    line-height: 1.35;
+    font-weight: 600;
+    white-space: normal;
+    letter-spacing: -0.2px;
+  }
+  .hats-footer-strip:hover .hats-footer-desc, .hats-footer-strip.is-open .hats-footer-desc {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---------- WORK PAGE: GRID ---------- */
+  .work-grid{
+    columns:2;
+    column-gap:0;
+    padding:0;
+  }
+  .work-item{
+    break-inside:avoid;
+    position:relative;
+    overflow:hidden;
+    cursor:pointer;
+  }
+  .work-item .placeholder-fill{
+    position:relative;
+    width:100%;
+    align-items:flex-end;
+    padding:24px;
+    font-size:0.85rem;
+    font-weight:600;
+    color:var(--white);
+    display: flex;
+    overflow: hidden;
+  }
+  .work-item .placeholder-fill img,
+  .work-item .placeholder-fill video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+  }
+  .work-item:hover .placeholder-fill img,
+  .work-item:hover .placeholder-fill video {
+    opacity: 0;
+  }
+  .work-item .placeholder-fill span {
+    position: relative;
+    z-index: 2;
+  }
+
+  .work-item:nth-child(1) .placeholder-fill{ background:#4fd1a5; height:380px; }
+  .work-item:nth-child(2) .placeholder-fill{ background:#c94f2e; height:380px; }
+  .work-item:nth-child(3) .placeholder-fill{ background:#e8180c; height:380px; }
+  .work-item:nth-child(4) .placeholder-fill{ background:#e6197a; height:380px; }
+  .work-item:nth-child(5) .placeholder-fill{ background:#7a5cff; height:380px; }
+  .work-item:nth-child(6) .placeholder-fill{ background:#111111; height:380px; }
+
+  /* ---------- CASE STUDY ---------- */
+  .project-page{
+    position:relative;
+    max-width:720px;
+    margin:0 auto;
+    padding:40px 24px 0px;
+  }
+  .back-link{
+    display:inline-block;
+    margin-bottom:40px;
+    font-size:0.9rem;
+    font-weight:500;
+    text-decoration:none;
+    color:#666;
+    cursor:pointer;
+    transition:color .2s ease;
+  }
+  .back-link:hover{
+    color:var(--yellow);
+  }
+  
+  .project-page h1{
+    font-family:'Inter', Arial, sans-serif;
+    font-size:2.8rem;
+    font-weight:700;
+    letter-spacing:-1px;
+    line-height:1.1;
+    margin-bottom:12px;
+  }
+
+  .project-subtitle{
+    font-size:1.15rem;
+    line-height:1.65;
+    margin-bottom:8px;
+    color:#333;
+  }
+  .selection-tag{
+    font-size:0.85rem;
+    font-weight:600;
+    color:#666;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin-bottom:32px;
+  }
+  .project-meta{
+    font-size:0.95rem;
+    line-height:1.65;
+    color:#666;
+    margin-bottom:48px;
+    padding-bottom:32px;
+    border-bottom:1px solid #eee;
+  }
+  .project-meta strong{
+    color:var(--black);
+    font-weight:600;
+  }
+  .project-point{ 
+    margin-bottom:32px; 
+  }
+  .project-point h3{
+    font-size:1rem;
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  .project-point p{
+    color:#444;
+    line-height:1.65;
+    margin-bottom:16px;
+  }
+  .project-point ul{
+    list-style:none;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-top:12px;
+  }
+  .project-point li{
+    font-size:0.95rem;
+    line-height:1.65;
+    color:#444;
+  }
+  .project-table-wrap{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    margin-top:16px;
+  }
+  .project-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:0.9rem;
+    min-width:600px;
+  }
+  .project-table th,
+  .project-table td{
+    text-align:left;
+    padding:12px 0;
+    border-bottom:1px solid #eee;
+    vertical-align:top;
+    line-height:1.5;
+    color:#444;
+  }
+  .project-table th{
+    font-weight:600;
+    color:var(--black);
+    padding-bottom:8px;
+  }
+  .project-table td{
+    padding-right:16px;
+  }
+  
+  /* Media Elements - Natural Dimension Adaptation (No Cropping) */
+  .project-media-auto {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-top: 48px;
+    border-radius: 2px;
+  }
+  .media-caption {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 8px;
+    font-style: italic;
+  }
+  .project-gallery-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 48px;
+  }
+  .project-gallery-row img,
+  .project-gallery-row video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 2px;
+    background: #111;
+  }
+
+  @media (max-width:600px){
+    .project-gallery-row { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- PLAY PAGE: UNCLIPPED & PSEUDO-INFINITE CANVAS ---------- */
+  .canvas-viewport{
+    position:relative;
+    width:100%;
+    height:calc(100vh - var(--header-h));
+    height:calc(100svh - var(--header-h));
+    overflow:hidden;
+    background:var(--white);
+    cursor:grab;
+    touch-action:none;
+  }
+  .canvas-viewport.grabbing{ cursor:grabbing; }
+  .canvas-layer{
+    position:absolute;
+    top:0;
+    left:0;
+    will-change:transform;
+  }
+  .canvas-tile{
+    position:absolute;
+    overflow:visible;
+  }
+  .canvas-tile img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    object-fit: contain;
+    border-radius: 2px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  }
+  .canvas-tile .draft-solid-fill {
+    width: 100%;
+    height: 100%;
+    min-height: 180px;
+    display: flex;
+    align-items: flex-end;
+    padding: 16px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--white);
+    border-radius: 2px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  }
+  .canvas-hint{
+    position:absolute;
+    bottom:24px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:0.75rem;
+    letter-spacing:0.4px;
+    color:#999;
+    pointer-events:none;
+    z-index: 10;
+  }
+
+  /* ---------- ABOUT PAGE & PARALLAX RESUME SECTION ---------- */
+  .about-page-container {
+    position: relative;
+    width: 100%;
+  }
+  .about-content-wrap{
+    max-width:720px;
+    margin:0 auto;
+    padding:80px 24px 100px;
+    background: var(--white);
+  }
+  .about-intro{
+    font-size:1.15rem;
+    line-height:1.65;
+    margin-bottom:32px;
+  }
+  .about-subhead{
+    font-weight:600;
+    font-size:1rem;
+    margin-bottom:22px;
+  }
+  .about-point{ margin-bottom:26px; }
+  .about-point h3{
+    font-size:1rem;
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  .about-point p{
+    color:#444;
+    line-height:1.65;
+  }
+  .about-links{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:28px;
+    margin-top:48px;
+    padding-top:28px;
+    border-top:1px solid #eee;
+  }
+  .about-links a{
+    color:var(--black);
+    text-decoration:underline;
+    text-underline-offset:3px;
+    font-weight:500;
+    transition:color .2s ease;
+  }
+  .about-links a:hover{ color:var(--yellow); }
+  .about-links span{
+    color:#666;
+  }
+
+  /* Parallax Resume Section */
+  .resume-parallax-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: var(--pink);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px;
+    overflow: hidden;
+  }
+  .resume-card-wrap {
+    max-width: 600px;
+    width: 100%;
+    aspect-ratio: 1 / 1.414; /* Standard US Letter / A4 aspect ratio matching resume dimensions */
+    background: var(--white);
+    padding: 40px 20px;
+    border-radius: 4px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .resume-download-centered {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--black);
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    transition: color 0.2s ease;
+    text-align: center;
+  }
+  .resume-download-centered:hover {
+    color: var(--pink);
+  }
+
+  /* ================= TABLET (≤1024px) ================= */
+  @media (max-width:1024px){
+    header{ padding:16px 24px; }
+    nav ul{ gap:24px; }
+    .strip:hover, .strip.is-open{ flex:3; }
+    .hats-footer-strip:hover, .hats-footer-strip.is-open{ flex:2.5; }
+    .strip-desc{ font-size:1.5rem; max-width:100%; }
+    .work-grid{ columns:2; }
+    .work-item .placeholder-fill{ height:280px !important; }
+    .about-content-wrap{ padding:64px 24px 80px; }
+    .project-page{ max-width:600px; }
+    .project-gallery-row{ grid-template-columns:repeat(auto-fit,minmax(160px,1fr)) !important; }
+  }
+
+  /* ================= PHONE (≤640px) ================= */
+  @media (max-width:640px){
+    header{ padding:14px 16px; }
+    .logo{ font-size:1.7rem; }
+    nav ul{ gap:14px; }
+    nav a{ font-size:0.8rem; }
+
+    /* Hats: hover-reveal has no touch equivalent. On phone, strips stack
+       vertically and together fill the full screen height (equal split),
+       just like the full-bleed row on desktop. Tapping one grows it —
+       flex-basis:auto lets it size to its full content first, so text is
+       never clipped, and the page scrolls in the rare case content needs
+       more room than the screen offers. */
+    .hats-page-wrap{ overflow-y:auto; }
+    .strip-row{ flex-direction:column; overflow:visible; }
+    .strip{ flex:1 1 0; min-width:0; width:100%; overflow:visible; }
+    .strip:hover, .strip.is-open{ flex:6 1 auto; }
+    .strip .placeholder-fill{ position:static; height:100%; padding:18px 20px; }
+    .strip-heading{ font-size:0.7rem; }
+    .strip-desc{ font-size:1.05rem; max-width:100%; }
+
+    .hats-section-title{ padding:80px 20px 24px; }
+    .hats-section-title .main-title{ font-size:2.6rem; }
+    .hats-footer{ height:auto; flex-direction:column; overflow:visible; }
+    .hats-footer-strip{ flex:none !important; min-width:0; overflow:visible; }
+    .hats-footer-fill{ position:static; padding:14px 16px; }
+    .hats-footer-desc{ font-size:0.85rem; }
+
+    .work-grid{ columns:1; }
+    .work-item .placeholder-fill{ height:260px !important; }
+
+    .project-page{ padding:28px 20px 0; }
+    .project-page h1{ font-size:1.9rem; }
+    .project-subtitle{ font-size:1rem; }
+    .project-gallery-row{ grid-template-columns:1fr !important; }
+
+    .about-content-wrap{ padding:48px 20px 56px; }
+    .about-intro{ font-size:1.05rem; }
+    .resume-parallax-section{ padding:56px 20px; min-height:100vh; min-height:100svh; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo" id="logo"><span id="logoText">Aman</span><span class="cursor">|</span></div>
+  <nav>
+    <ul>
+      <li><a data-page="hats" class="active">Hats</a></li>
+      <li><a data-page="work">Work</a></li>
+      <li><a data-page="play">Play</a></li>
+      <li><a data-page="about">About</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ================= HATS ================= -->
+<section id="hats" class="page">
+  <div class="hats-page-wrap">
+    <div class="strip-row">
+      <div class="strip">
+        <div class="placeholder-fill card-bg-1">
+          <div class="strip-heading">Junior Creative Strategist</div>
+          <div class="strip-desc-wrap">
+            <div class="strip-desc">I map out the business logic before the visuals even start. I build end-to-end positioning for D2C brands, turning market tension into high-converting ecosystems.</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="strip">
+        <div class="placeholder-fill card-bg-2">
+          <div class="strip-heading">Campaign Storyboarder</div>
+          <div class="strip-desc-wrap">
+            <div class="strip-desc">I protect pre-production budgets by locking in the vision early. I build precise, frame-by-frame blueprints so directors and editors know exactly what to execute before a single camera rolls.</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="strip">
+        <div class="placeholder-fill card-bg-3">
+          <div class="strip-heading">Internet Culture Observer</div>
+          <div class="strip-desc-wrap">
+            <div class="strip-desc">I look at campaigns through a sociological lens. I study how people actually interact online, translating meme-native behaviors and cultural friction into brand strategies that feel authentic.</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="strip">
+        <div class="placeholder-fill card-bg-4">
+          <div class="strip-heading">Visual Storyteller</div>
+          <div class="strip-desc-wrap">
+            <div class="strip-desc">Whether I am writing copy, drawing frames, or structuring a brand world, my ultimate goal is the same: crafting a narrative that actually makes people stop the doom-scroll.</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="strip">
+        <div class="placeholder-fill card-bg-5">
+          <div class="strip-heading">Art Direction Intern</div>
+          <div class="strip-desc-wrap">
+            <div class="strip-desc">I oversee the complete visual narrative. From the first concept to the final drop, I ensure every asset perfectly aligns with the brand's core identity and cultural ambition.</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="strip">
+        <div class="placeholder-fill card-bg-6">
+          <div class="strip-heading">Creative Associate</div>
+          <div class="strip-desc-wrap">
+            <div class="strip-desc">I live on the timeline so your brand doesn't guess. I build meme-fluent, narrative-led social strategies that insert your brand naturally into the daily cultural conversation.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WORK ================= -->
+<section id="work" class="page">
+  <div class="work-grid">
+    <div class="work-item" data-page="case-study-peep">
+      <div class="placeholder-fill">
+        <img src="portfolio-media/thumbnail-images/BEAUTY (3).png" alt="Peep Thumbnail">
+        <span>Peep Spec Campaign</span>
+      </div>
+    </div>
+    <div class="work-item" data-page="case-study-zudio">
+      <div class="placeholder-fill">
+        <img src="portfolio-media/thumbnail-images/#OOTD (12).png" alt="Zudio Thumbnail">
+        <span>Pair it with Denim</span>
+      </div>
+    </div>
+    <div class="work-item" data-page="case-study-bob">
+      <div class="placeholder-fill">
+        <img src="portfolio-media/thumbnail-images/5.png" alt="bob Thumbnail">
+        <span>bob Spec Campaign</span>
+      </div>
+    </div>
+    <div class="work-item" data-page="case-study-iris">
+      <div class="placeholder-fill">
+        <img src="portfolio-media/thumbnail-images/3.png" alt="IRIS Thumbnail">
+        <span>IRIS Spec Campaign</span>
+      </div>
+    </div>
+    <div class="work-item" data-page="case-study-archive">
+      <div class="placeholder-fill">
+        <video autoplay muted loop playsinline>
+          <source src="portfolio-media/ad-archive-portfolio/reference-card.webm" type="video/webm">
+        </video>
+        <span>Ad Archive</span>
+      </div>
+    </div>
+    <div class="work-item" data-page="case-study-stealth">
+      <div class="placeholder-fill">
+        <img src="portfolio-media/thumbnail-images/9.png" alt="Stealth Thumbnail">
+        <span>Kill the Trend</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CASE STUDY: PEEP ================= -->
+<section id="case-study-peep" class="page">
+  <div class="project-page">
+
+    <a data-page="work" class="back-link">← Back to Work</a>
+    
+    <h1>Redefining Beauty Through a New Lens</h1>
+    <div class="project-subtitle">Peep Spec Campaign</div>
+    
+    <div class="project-meta">
+      <strong>Role:</strong> Brand & Creative Strategy, Art Direction, Copywriting<br>
+      <strong>Deliverables:</strong> Strategic Positioning, Consumer Journey Matrix, Modular OOH Concept
+    </div>
+
+    <div class="project-point">
+      <h3>The Problem</h3>
+      <p>Despite the profound cultural significance of eyes in the Indian context—from the protective and potent weight of "nazar" (the gaze) to the poetic reverence for "nayan"—eye makeup lacks a dedicated, elevated category. The beauty industry has built intricate routines for skin, hair, and lips, but eyes are rarely treated as an experimental or artistic canvas, often reduced to just standard mascara. Simultaneously, traditional beauty OOH advertising has become wallpaper, failing to capture the true power of the gaze.</p>
+    </div>
+
+    <div class="project-point">
+      <h3>The Insight & Strategy</h3>
+      <p>Eyes do everything first, and culturally, they hold the most power. To launch Peep as a dedicated world for eye beauty, we need to elevate the eye from a basic makeup step to a bold, artistic canvas. By taking a traditional static beauty billboard and making a targeted, physical intervention—swapping out or painting over the eye section—the campaign activates the physical environment. It forces the commuter to look twice, reclaiming the cultural power of the gaze and proving the manifesto: Eyes first. Everything else can wait.</p>
+    </div>
+
+    <div class="project-point">
+      <h3>The Strategy (Get / To / By)</h3>
+      <ul>
+        <li><strong>GET:</strong> Beauty consumers who limit eye makeup to standard mascara and do not view their eyes as a bold, experimental canvas.</li>
+        <li><strong>TO:</strong> Recognize Peep as a dedicated brand world where eye styling is expressive, artistic, and culturally powerful.</li>
+        <li><strong>BY:</strong> Activating physical surroundings through modular OOH billboards that physically swap or alter the eye makeup on a static image, commanding attention.</li>
+      </ul>
+    </div>
+
+    <div class="project-point">
+      <h3>The Consumer Journey</h3>
+      <div class="project-table-wrap">
+        <table class="project-table">
+          <thead>
+            <tr>
+              <th>Phase</th>
+              <th>The Barrier</th>
+              <th>The Comms Task</th>
+              <th>Core Channels</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Living</strong> (Awareness)</td>
+              <td>Consumers view eye makeup as just basic mascara and tune out standard, passive beauty ads.</td>
+              <td>Disrupt the environment. Reclaim the power of the gaze by physically altering the eyes on an OOH board.</td>
+              <td>Modular OOH Billboards, Guerrilla Marketing</td>
+            </tr>
+            <tr>
+              <td><strong>Looking</strong> (Consideration)</td>
+              <td>Consumers lack a dedicated brand world exclusively for experimental eye styling.</td>
+              <td>Establish the manifesto: Eyes deserved their own aisle. That world is Peep.</td>
+              <td>Social Media (Behind-the-scenes of the OOH swap), Instagram</td>
+            </tr>
+            <tr>
+              <td><strong>Buying</strong> (Conversion)</td>
+              <td>Hesitation to step outside the comfort zone of standard, functional eye makeup.</td>
+              <td>Frame Peep as the tool to look "more like yourself, or not entirely like yourself, in the best way possible."</td>
+              <td>D2C E-commerce Website, Retargeting Ads</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="project-point">
+      <h3>Key Performance Indicator</h3>
+      <p>A high volume of earned media and organic social shares capturing the physical billboard disruption, directly correlating to a targeted spike in branded search volume for the Peep launch.</p>
+    </div>
+
+    <img class="project-media-auto" src="portfolio-media/peep-eye-makeup/BEAUTY (2).gif" alt="Peep Beauty GIF">
+
+  </div>
+
+  <!-- HATS FOOTER -->
+  <div class="hats-section-title">
+    <div class="main-title">Hats I Wear</div>
+    <div class="email-link"><a href="mailto:adkaur1605@gmail.com">adkaur1605@gmail.com</a></div>
+  </div>
+  <footer class="hats-footer">
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-1"><div class="hats-footer-heading">Junior Creative Strategist</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">I map out business logic before visuals start.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-2"><div class="hats-footer-heading">Campaign Storyboarder</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">I protect pre-production budgets by locking in vision early.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-3"><div class="hats-footer-heading">Internet Culture Observer</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">I look at campaigns through a sociological lens.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-4"><div class="hats-footer-heading">Visual Storyteller</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">Crafting narratives that stop the doom-scroll.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-5"><div class="hats-footer-heading">Art Direction Intern</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">Overseeing the complete visual narrative.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-6"><div class="hats-footer-heading">Creative Associate</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">I live on the timeline so your brand doesn't guess.</div></div></div></div>
+  </footer>
+</section>
+
+<!-- ================= CASE STUDY: ZUDIO ================= -->
+<section id="case-study-zudio" class="page">
+  <div class="project-page">
+
+    <a data-page="work" class="back-link">← Back to Work</a>
+    
+    <h1>Pair it with Denim</h1>
+    <div class="project-subtitle">#ZudioReimagined Spec Campaign</div>
+    
+    <div class="project-meta">
+      <strong>Role:</strong> Brand Strategy, AI Art Direction, Visual Design<br>
+      <strong>Deliverables:</strong> Strategic Positioning, Consumer Journey Matrix, Hybrid AI Campaign Execution
+    </div>
+
+    <div class="project-point">
+      <h3>The Problem</h3>
+      <p>Traditional ethnic wear is frequently boxed into "occasion wear" or sold as rigid, complete sets. For a Gen Z audience that prioritizes fluid, everyday styling, these full traditional sets can feel disconnected from their actual daily uniform: denim. Furthermore, testing and shooting multiple hybrid styling concepts across different seasons traditionally requires a massive, expensive pre-production shoot.</p>
+    </div>
+
+    <div class="project-point">
+      <h3>The Insight & Strategy</h3>
+      <p>Gen Z doesn't always wear ethnic clothes as a rigid set; they effortlessly pair modern heritage pieces with their existing wardrobe staples. To reflect this, the campaign title Pair it with Denim captures two distinct consumer behaviors: styling denim as part of a highly structured look, or simply throwing it on with whatever they are already wearing. By using a hybrid AI-to-human production pipeline, I rapidly prototyped diverse, seasonless moods (layering, high contrast, summer casual) without the overhead of a massive initial shoot.</p>
+    </div>
+
+    <div class="project-point">
+      <h3>The Strategy (Get / To / By)</h3>
+      <ul>
+        <li><strong>GET:</strong> Gen Z consumers who view ethnic wear as occasion-specific rather than everyday casual.</li>
+        <li><strong>TO:</strong> Seamlessly integrate modern heritage pieces into their daily denim rotation.</li>
+        <li><strong>BY:</strong> Showcasing diverse, seasonless moods under the "Pair It With Denim" concept, executed through an efficient, hybrid AI production pipeline.</li>
+      </ul>
+    </div>
+
+    <div class="project-point">
+      <h3>The Consumer Journey</h3>
+      <div class="project-table-wrap">
+        <table class="project-table">
+          <thead>
+            <tr>
+              <th>Phase</th>
+              <th>The Barrier</th>
+              <th>The Comms Task</th>
+              <th>Core Channels</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Living</strong> (Awareness)</td>
+              <td>Ethnic wear often sits in the closet waiting for a specific cultural event or festival.</td>
+              <td>Normalize modern heritage. Show ethnic tops effortlessly paired with everyday denim.</td>
+              <td>Instagram Reels, TikTok, Influencer Styling</td>
+            </tr>
+            <tr>
+              <td><strong>Looking</strong> (Consideration)</td>
+              <td>Unsure how to style ethnic pieces casually across different climates or moods.</td>
+              <td>Present diverse, seasonless styling (high contrast, layering, light summer casual) rather than rigid drops.</td>
+              <td>Brand Social Media, Website Lookbooks</td>
+            </tr>
+            <tr>
+              <td><strong>Buying</strong> (Conversion)</td>
+              <td>Habitually buying full sets rather than mixing and matching individual pieces.</td>
+              <td>Frame the purchase around versatility with the direct CTA: Pair it with Denim.</td>
+              <td>In-Store Visual Merchandising, D2C App</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="project-point">
+      <h3>Key Performance Indicator</h3>
+      <p>An increase in cross-category basket sizes—specifically the simultaneous purchase of ethnic tops and denim bottoms—and high retention on the short-form hybrid styling reels.</p>
+    </div>
+
+    <!-- Zudio Photos in One Line (Natural Dimensions) -->
+    <div class="project-gallery-row" style="grid-template-columns: repeat(6, 1fr);">
+      <img src="portfolio-media/zudio-re-imagined/30.png" alt="Zudio 30">
+      <img src="portfolio-media/zudio-re-imagined/31.png" alt="Zudio 31">
+      <img src="portfolio-media/zudio-re-imagined/32.png" alt="Zudio 32">
+      <img src="portfolio-media/zudio-re-imagined/33.png" alt="Zudio 33">
+      <img src="portfolio-media/zudio-re-imagined/34.png" alt="Zudio 34">
+      <img src="portfolio-media/zudio-re-imagined/35.png" alt="Zudio 35">
+    </div>
+
+    <!-- 1st GIF -->
+    <img class="project-media-auto" src="portfolio-media/zudio-re-imagined/#OOTD.gif" alt="OOTD GIF">
+
+    <!-- Last GIF -->
+    <img class="project-media-auto" src="portfolio-media/zudio-re-imagined/Strike a Pose (2).gif" alt="Strike a Pose GIF">
+
+  </div>
+
+  <!-- HATS FOOTER -->
+  <div class="hats-section-title">
+    <div class="main-title">Hats I Wear</div>
+    <div class="email-link"><a href="mailto:adkaur1605@gmail.com">adkaur1605@gmail.com</a></div>
+  </div>
+  <footer class="hats-footer">
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-1"><div class="hats-footer-heading">Junior Creative Strategist</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">I map out business logic before visuals start.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-2"><div class="hats-footer-heading">Campaign Storyboarder</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">I protect pre-production budgets by locking in vision early.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-3"><div class="hats-footer-heading">Internet Culture Observer</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">I look at campaigns through a sociological lens.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-4"><div class="hats-footer-heading">Visual Storyteller</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">Crafting narratives that stop the doom-scroll.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-5"><div class="hats-footer-heading">Art Direction Intern</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">Overseeing the complete visual narrative.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-6"><div class="hats-footer-heading">Creative Associate</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">I live on the timeline so your brand doesn't guess.</div></div></div></div>
+  </footer>
+</section>
+
+<!-- ================= CASE STUDY: BOB ================= -->
+<section id="case-study-bob" class="page">
+  <div class="project-page">
+    
+    <a data-page="work" class="back-link">← Back to Work</a>
+    
+    <h1>End the App Juggle</h1>
+    <div class="project-subtitle">bob Spec Campaign</div>
+    
+    <div class="project-meta">
+      <strong>Role:</strong> Brand & Creative Strategy, Campaign Storyboards, Copywriting<br>
+      <strong>Deliverables:</strong> Strategic Positioning, Consumer Journey Matrix, Campaign Storyboards
+    </div>
+
+    <div class="project-point">
+      <h3>The Problem</h3>
+      <p>Daily commuters are suffering from "booking fatigue." Finding a ride has devolved into a frustrating, anxiety-inducing ritual of constantly toggling between Ola, Uber, and Rapido to compare surge prices and wait times. The primary friction of the commute isn't the travel itself; it's the wasted time and mental energy of the pre-ride app juggle.</p>
+    </div>
+
+    <div class="project-point">
+      <h3>The Insight & Strategy</h3>
+      <p>The most universal cultural truth of Indian commuting is the phrase, "Abhi tak book nahi hua?" (Has it not booked yet?). By highlighting the relatable tension of friends waiting on the couch while one person frantically switches between apps, bob positions itself as the ultimate tension-breaker. As an ONDC-backed smart mobility aggregator, bob isn't just another ride app—it is the frictionless, single-screen solution to the modern commuting headache.</p>
+    </div>
+
+    <div class="project-point">
+      <h3>The Strategy (Get / To / By)</h3>
+      <ul>
+        <li><strong>GET:</strong> Daily commuters exhausted by surge pricing and juggling multiple ride-hailing apps.</li>
+        <li><strong>TO:</strong> Make bob their default, single-screen aggregator for every commute.</li>
+        <li><strong>BY:</strong> Visualizing the agonizing "app juggle" and introducing bob as the instant, hassle-free resolution.</li>
+      </ul>
+    </div>
+
+    <div class="project-point">
+      <h3>The Consumer Journey</h3>
+      <div class="project-table-wrap">
+        <table class="project-table">
+          <thead>
+            <tr>
+              <th>Phase</th>
+              <th>The Barrier</th>
+              <th>The Comms Task</th>
+              <th>Core Channels</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Living</strong> (Awareness)</td>
+              <td>Users waste time and mental energy toggling between 3 different ride apps.</td>
+              <td>Mirror the universal frustration of making your friends wait while you compare prices.</td>
+              <td>Instagram Reels, YouTube Pre-Roll, Meme Pages</td>
+            </tr>
+            <tr>
+              <td><strong>Looking</strong> (Consideration)</td>
+              <td>Users don't realize open mobility networks allow cross-platform booking.</td>
+              <td>Position bob as the ultimate smart aggregator that does the price/time comparison for you.</td>
+              <td>Social Media, App Store Optimization, Influencer Skits</td>
+            </tr>
+            <tr>
+              <td><strong>Buying</strong> (Conversion)</td>
+              <td>Habituation to opening Uber/Ola first out of muscle memory.</td>
+              <td>Build a sticky new behavioral hook: "THAT'S WHY. JUST bob IT."</td>
+              <td>Performance Ads, Push Notifications, Search</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="project-point">
+      <h3>Key Performance Indicator</h3>
+      <p>A reduction in the average user's time-to-book, driving high day-one app installs and displacing legacy ride-hailing apps as the default muscle-memory first open.</p>
+    </div>
+
+    <video class="project-media-auto" controls autoplay muted loop>
+      <source src="portfolio-media/just-bob-it/JUST bob IT (1).mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="media-caption">Storyboards (Draft): Visual Reference Only</div>
+
+  </div>
+
+  <!-- HATS FOOTER -->
+  <div class="hats-section-title">
+    <div class="main-title">Hats I Wear</div>
+    <div class="email-link"><a href="mailto:adkaur1605@gmail.com">adkaur1605@gmail.com</a></div>
+  </div>
+  <footer class="hats-footer">
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-1"><div class="hats-footer-heading">Junior Creative Strategist</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">I map out business logic before visuals start.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-2"><div class="hats-footer-heading">Campaign Storyboarder</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">I protect pre-production budgets by locking in vision early.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-3"><div class="hats-footer-heading">Internet Culture Observer</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">I look at campaigns through a sociological lens.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-4"><div class="hats-footer-heading">Visual Storyteller</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">Crafting narratives that stop the doom-scroll.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-5"><div class="hats-footer-heading">Art Direction Intern</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">Overseeing the complete visual narrative.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-6"><div class="hats-footer-heading">Creative Associate</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">I live on the timeline so your brand doesn't guess.</div></div></div></div>
+  </footer>
+</section>
+
+<!-- ================= CASE STUDY: IRIS ================= -->
+<section id="case-study-iris" class="page">
+  <div class="project-page">
+
+    <a data-page="work" class="back-link">← Back to Work</a>
+    
+    <h1>We Let Our Gen Z Intern Take Over</h1>
+    <div class="project-subtitle">IRIS Spec Campaign</div>
+    
+    <div class="project-meta">
+      <strong>Role:</strong> Brand Strategy, Art Direction, Editorial Illustration<br>
+      <strong>Deliverables:</strong> Strategic Positioning, Consumer Journey Matrix, Campaign Storyboards
+    </div>
+
+    <div class="project-point">
+      <h3>The Problem</h3>
+      <p>IRIS colored eye contacts are currently marketed on third-party retailers like Nykaa using identical, sterile macro product shots. This creates a critical barrier for a Gen Z audience: the lenses feel like a clinical medical device or a high-commitment functional purchase, rather than a fluid, everyday mood accessory.</p>
+    </div>
+
+    <div class="project-point">
+      <h3>The Insight & Strategy</h3>
+      <p>Online culture doesn't reward hyper-polished perfection; it rewards meme-native novelty and deadpan humor. To shift colored contacts from a "clinical purchase" to a "daily fashion pick," IRIS must completely subvert the expected high-fashion close-ups. By leaning into the unsettling, hyper-candid "stares straight into your soul" aesthetic, IRIS can own a tone that feels natively Gen Z and visually dominate the crowded Nykaa interface.</p>
+    </div>
+
+    <div class="project-point">
+      <h3>The Strategy (Get / To / By)</h3>
+      <ul>
+        <li><strong>GET:</strong> Gen Z consumers who view colored lenses as a sterile, clinical product.</li>
+        <li><strong>TO:</strong> Treat IRIS colored eye contacts as a daily, low-stakes fashion accessory.</li>
+        <li><strong>BY:</strong> Subverting traditional beauty macro shots with deadpan, meme-inspired visual storytelling.</li>
+      </ul>
+    </div>
+
+    <div class="project-point">
+      <h3>The Consumer Journey</h3>
+      <div class="project-table-wrap">
+        <table class="project-table">
+          <thead>
+            <tr>
+              <th>Phase</th>
+              <th>The Barrier</th>
+              <th>The Comms Task</th>
+              <th>Core Channels</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Living</strong> (Awareness)</td>
+              <td>Lenses feel like a sterile, clinical device, not a fashion choice.</td>
+              <td>Establish IRIS lenses as a bold, everyday mood accessory.</td>
+              <td>Instagram Reels, TikTok, Meme Pages, Influencers</td>
+            </tr>
+            <tr>
+              <td><strong>Looking</strong> (Consideration)</td>
+              <td>All lens ads look like overly polished, identical macro close-ups.</td>
+              <td>Subvert the expected with deadpan, meme-native "stares into your soul" visuals.</td>
+              <td>Brand Social Media, YouTube, Website</td>
+            </tr>
+            <tr>
+              <td><strong>Buying</strong> (Conversion)</td>
+              <td>It feels like a high-commitment or purely functional purchase.</td>
+              <td>Frame picking an IRIS lens as being as easy as picking your daily outfit.</td>
+              <td>Nykaa App, Website UI, Retargeting Ads</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="project-point">
+      <h3>Key Performance Indicator</h3>
+      <p>A measurable increase in direct add-to-carts originating from the disrupted UI, alongside a shift in social sentiment tagging the lenses as a daily OOTD accessory rather than a functional purchase.</p>
+    </div>
+
+    <!-- First Photo Grid (Natural Dimensions) -->
+    <div class="project-gallery-row">
+      <img src="portfolio-media/genz-intern-eye-contacts/1.png" alt="Gen Z Eye Contacts 1">
+      <img src="portfolio-media/genz-intern-eye-contacts/5.png" alt="Gen Z Eye Contacts 5">
+      <img src="portfolio-media/genz-intern-eye-contacts/8.png" alt="Gen Z Eye Contacts 8">
+    </div>
+
+    <!-- Second Photo Grid Below (Natural Dimensions) -->
+    <div class="project-gallery-row">
+      <img src="portfolio-media/genz-intern-eye-contacts/6.png" alt="Gen Z Eye Contacts 6">
+      <img src="portfolio-media/genz-intern-eye-contacts/16.png" alt="Gen Z Eye Contacts 16">
+      <img src="portfolio-media/genz-intern-eye-contacts/19.png" alt="Gen Z Eye Contacts 19">
+    </div>
+
+    <!-- GIF (Natural Dimensions) -->
+    <img class="project-media-auto" src="portfolio-media/genz-intern-eye-contacts/zoom in.gif" alt="Zoom In GIF">
+    <div class="media-caption">Storyboards (Draft): Visual Reference Only</div>
+
+  </div>
+
+  <!-- HATS FOOTER -->
+  <div class="hats-section-title">
+    <div class="main-title">Hats I Wear</div>
+    <div class="email-link"><a href="mailto:adkaur1605@gmail.com">adkaur1605@gmail.com</a></div>
+  </div>
+  <footer class="hats-footer">
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-1"><div class="hats-footer-heading">Junior Creative Strategist</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">I map out business logic before visuals start.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-2"><div class="hats-footer-heading">Campaign Storyboarder</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">I protect pre-production budgets by locking in vision early.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-3"><div class="hats-footer-heading">Internet Culture Observer</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">I look at campaigns through a sociological lens.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-4"><div class="hats-footer-heading">Visual Storyteller</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">Crafting narratives that stop the doom-scroll.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-5"><div class="hats-footer-heading">Art Direction Intern</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">Overseeing the complete visual narrative.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-6"><div class="hats-footer-heading">Creative Associate</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">I live on the timeline so your brand doesn't guess.</div></div></div></div>
+  </footer>
+</section>
+
+<!-- ================= CASE STUDY: AD ARCHIVE ================= -->
+<section id="case-study-archive" class="page">
+  <div class="project-page">
+
+    <a data-page="work" class="back-link">← Back to Work</a>
+    
+    <h1>Ad Archive</h1>
+    <div class="project-subtitle">Personal Curation Project</div>
+    
+    <div class="project-meta">
+      <strong>Role:</strong> Visual Researcher, Art Director<br>
+      <strong>Deliverables:</strong> Personal Visual Archive, Ongoing Creative Study Website
+    </div>
+
+    <div class="project-point">
+      <h3>The Origin</h3>
+      <p>As someone who regularly pulls film stills to study composition and blocking for art references, I found myself asking a simple question: is anyone studying commercial advertising this way? Advertising moves so fast that brilliant visual choices are often treated as disposable content. I was curious if the structural logic, framing, and pacing of cinema were being applied to ads in the same deliberate way, so I started collecting them to find out.</p>
+    </div>
+
+    <div class="project-point">
+      <h3>The Insight & Strategy</h3>
+      <p>What began as a purely personal interest—saving a cool frame here, a sharp line of dialogue there—naturally grew into a structured practice. I realized that by archiving commercial moments with the same reverence usually reserved for film cinematography, I could reverse-engineer the creative decisions behind them. It is a sandbox built entirely out of my own curiosity, turning passive scrolling into an active study of visual storytelling.</p>
+    </div>
+
+    <div class="project-point">
+      <h3>The Strategy (Get / To / By)</h3>
+      <ul>
+        <li><strong>GET:</strong> My own artistic curiosity regarding visual composition and narrative pacing.</li>
+        <li><strong>TO:</strong> Understand how the deliberate visual language of cinema translates into commercial advertising.</li>
+        <li><strong>BY:</strong> Building a personal, ongoing archive of commercial still shots, dialogue, and creative devices to study how they were crafted.</li>
+      </ul>
+    </div>
+
+    <div class="project-point">
+      <h3>The Curation Framework</h3>
+      <div class="project-table-wrap">
+        <table class="project-table">
+          <thead>
+            <tr>
+              <th>Phase</th>
+              <th>The Motivation</th>
+              <th>The Archival Task</th>
+              <th>Core Focus</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Observation</strong></td>
+              <td>A natural habit of hunting for strong art references.</td>
+              <td>Isolate the specific visual frame, copy line, or pacing choice that caught my eye.</td>
+              <td>Still Shots, Dialogue Snippets, Pacing Hooks</td>
+            </tr>
+            <tr>
+              <td><strong>Categorization</strong></td>
+              <td>Managing an ever-growing folder of screenshots.</td>
+              <td>Organize the archive strictly by campaign type and specific creative device.</td>
+              <td>Taxonomy, Database Structuring, Visual Libraries</td>
+            </tr>
+            <tr>
+              <td><strong>Synthesis</strong></td>
+              <td>Answering the question: Why does this work?</td>
+              <td>Attach personal running notes on what each piece teaches and how the shot was constructed.</td>
+              <td>Visual Study, Copywriting Observation, Art Direction</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Ad Archive Media Items -->
+    <img class="project-media-auto" src="portfolio-media/ad-archive-portfolio/reference-card (1).png" alt="Reference Card 1">
+    <img class="project-media-auto" src="portfolio-media/ad-archive-portfolio/reference-card.png" alt="Reference Card">
+    <video class="project-media-auto" controls autoplay muted loop>
+      <source src="portfolio-media/ad-archive-portfolio/reference-card.webm" type="video/webm">
+      Your browser does not support the video tag.
+    </video>
+    <div class="media-caption">*Featuring CocaCola, Ditto, and Fevikwik</div>
+
+  </div>
+
+  <!-- HATS FOOTER -->
+  <div class="hats-section-title">
+    <div class="main-title">Hats I Wear</div>
+    <div class="email-link"><a href="mailto:adkaur1605@gmail.com">adkaur1605@gmail.com</a></div>
+  </div>
+  <footer class="hats-footer">
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-1"><div class="hats-footer-heading">Junior Creative Strategist</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">I map out business logic before visuals start.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-2"><div class="hats-footer-heading">Campaign Storyboarder</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">I protect pre-production budgets by locking in vision early.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-3"><div class="hats-footer-heading">Internet Culture Observer</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">I look at campaigns through a sociological lens.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-4"><div class="hats-footer-heading">Visual Storyteller</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">Crafting narratives that stop the doom-scroll.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-5"><div class="hats-footer-heading">Art Direction Intern</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">Overseeing the complete visual narrative.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-6"><div class="hats-footer-heading">Creative Associate</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">I live on the timeline so your brand doesn't guess.</div></div></div></div>
+  </footer>
+</section>
+
+<!-- ================= CASE STUDY: STEALTH ================= -->
+<section id="case-study-stealth" class="page">
+  <div class="project-page">
+
+    <a data-page="work" class="back-link">← Back to Work</a>
+    
+    <h1>Kill the Trend</h1>
+    <div class="project-subtitle">[Stealth AI Fashion Startup] Spec Campaign</div>
+    <div class="selection-tag">Shortlisted / Selected Assignment</div>
+    
+    <div class="project-meta">
+      <strong>Role:</strong> Brand & Creative Strategy, Art Direction, Campaign Storyboards<br>
+      <strong>Deliverables:</strong> Pre-Launch Strategic Positioning, Consumer Journey Matrix, Meme Strategy, Campaign Storyboards
+    </div>
+
+    <div class="project-point">
+      <h3>The Problem</h3>
+      <p>Every industry is being reinvented by AI, but fashion is still built on long design cycles, inventory bets, and yesterday's trends. For Gen Z, this mass-production pipeline results in hyper-conformity and the sociological dread of showing up in the exact same algorithm-fed outfit as everyone else.</p>
+    </div>
+
+    <div class="project-point">
+      <h3>The Insight & Strategy: Resolving the Brand Paradox</h3>
+      <p>A core strategic challenge for this stealth AI tech brand was a built-in product paradox: How do you market a startup that is built on rapidly hopping on trends, while hero-ing a feature called the "Kill-Switch" that ends them? If not positioned correctly, it feels completely counterintuitive.</p>
+      <p>I resolved the paradox by shifting from "trend-following" to "trend-ownership." The Kill-Switch doesn't kill fashion; it kills cloning. The AI catches the trend so you can wear it first, framing the brand as a living editorial drop system built for permanent, individual ownership.</p>
+    </div>
+
+    <div class="project-point">
+      <h3>The Strategy (Get / To / By)</h3>
+      <ul>
+        <li><strong>GET:</strong> Gen Z consumers experiencing identity fatigue from mass trend velocity and algorithmic outfit cloning.</li>
+        <li><strong>TO:</strong> Join a high-energy pre-launch community that guarantees permanent, individual ownership of their style.</li>
+        <li><strong>BY:</strong> Resolving the trend paradox through the "Kill-Switch"—teasing the power to hop on a fresh trend and immediately lock everyone else out.</li>
+      </ul>
+    </div>
+
+    <div class="project-point">
+      <h3>The Consumer Journey</h3>
+      <div class="project-table-wrap">
+        <table class="project-table">
+          <thead>
+            <tr>
+              <th>Phase</th>
+              <th>The Barrier</th>
+              <th>The Comms Task</th>
+              <th>Core Channels</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Living</strong> (Awareness)</td>
+              <td>Fast fashion mass-produces micro-trends, leading to extreme identity fatigue.</td>
+              <td>Highlight the absurdity of hyper-conformity and the loss of individual style.</td>
+              <td>Official Meme Account, Subculture Reels, TikTok</td>
+            </tr>
+            <tr>
+              <td><strong>Looking</strong> (Consideration)</td>
+              <td>A trend-based brand having a "Kill-Switch" feels counterintuitive.</td>
+              <td>Resolve the paradox: the switch doesn't kill the trend, it kills the cloning. You own it forever.</td>
+              <td>Instagram, Pre-Launch Website</td>
+            </tr>
+            <tr>
+              <td><strong>Buying</strong> (Conversion)</td>
+              <td>Reflecting individual demand and avoiding mass restocks.</td>
+              <td>Shift to a reassuring tone of absolute individuality ("New Pinch? Always. Same Pinch? Never.").</td>
+              <td>D2C App Interface, Post-Launch Campaigns</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="project-point">
+      <h3>Key Performance Indicator</h3>
+      <p>Rapid sell-out velocity upon drop release and a high conversion rate on the pre-launch waitlist, validating the consumer demand for extreme, permanent trend ownership.</p>
+    </div>
+
+    <!-- 1st Photo (Natural Dimensions) -->
+    <img class="project-media-auto" src="portfolio-media/uniq-you/4.png" alt="Stealth Startup 4">
+
+    <!-- Video Grid (Natural Dimensions) -->
+    <div class="project-gallery-row" style="grid-template-columns: repeat(2, 1fr);">
+      <video controls autoplay muted loop>
+        <source src="portfolio-media/uniq-you/Kill Trends (1).mp4" type="video/mp4">
+      </video>
+      <video controls autoplay muted loop>
+        <source src="portfolio-media/uniq-you/OFF OUR RUNWAY (1).mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="media-caption">Storyboards (Draft): Visual Reference Only</div>
+
+    <!-- 2nd Photo Grid (Natural Dimensions) -->
+    <div class="project-gallery-row">
+      <img src="portfolio-media/uniq-you/25.png" alt="Stealth Startup 25">
+      <img src="portfolio-media/uniq-you/26.png" alt="Stealth Startup 26">
+      <img src="portfolio-media/uniq-you/27.png" alt="Stealth Startup 27">
+    </div>
+
+    <!-- Single Video (Natural Dimensions) -->
+    <video class="project-media-auto" controls autoplay muted loop>
+      <source src="portfolio-media/uniq-you/Recording 2026-08-25 225746.mp4" type="video/mp4">
+    </video>
+
+    <!-- Last Photo (Natural Dimensions) -->
+    <img class="project-media-auto" src="portfolio-media/uniq-you/29.png" alt="Stealth Startup 29">
+
+  </div>
+
+  <!-- HATS FOOTER -->
+  <div class="hats-section-title">
+    <div class="main-title">Hats I Wear</div>
+    <div class="email-link"><a href="mailto:adkaur1605@gmail.com">adkaur1605@gmail.com</a></div>
+  </div>
+  <footer class="hats-footer">
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-1"><div class="hats-footer-heading">Junior Creative Strategist</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">I map out business logic before visuals start.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-2"><div class="hats-footer-heading">Campaign Storyboarder</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">I protect pre-production budgets by locking in vision early.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-3"><div class="hats-footer-heading">Internet Culture Observer</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">I look at campaigns through a sociological lens.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-4"><div class="hats-footer-heading">Visual Storyteller</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">Crafting narratives that stop the doom-scroll.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-5"><div class="hats-footer-heading">Art Direction Intern</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">Overseeing the complete visual narrative.</div></div></div></div>
+    <div class="hats-footer-strip"><div class="hats-footer-fill card-bg-6"><div class="hats-footer-heading">Creative Associate</div><div class="hats-footer-desc-wrap"><div class="hats-footer-desc">I live on the timeline so your brand doesn't guess.</div></div></div></div>
+  </footer>
+</section>
+
+<!-- ================= PLAY ================= -->
+<section id="play" class="page">
+  <div class="canvas-viewport" id="canvasViewport">
+    <div class="canvas-layer" id="singleLayer"></div>
+    <div class="canvas-hint">drag or scroll — any direction</div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about" class="page">
+  <div class="about-page-container">
+    <div class="about-content-wrap">
+      <p class="about-intro">I sit at the intersection of internet culture, visual narrative, and physical space. I help brands translate environmental observations into polished, culturally resonant campaigns.</p>
+      <p class="about-subhead">How I Build:</p>
+      <div class="about-point">
+        <h3>Strategic Signaling</h3>
+        <p>I use a sociological approach to map out cause-and-effect creative strategies, ensuring your brand hits the right public signals from pre-launch to post-launch.</p>
+      </div>
+      <div class="about-point">
+        <h3>Budget Protection</h3>
+        <p>I save pre-production budgets by building rigorous storyboards and scripts that lock in the vision, leaving zero ambiguity for your directors and editors.</p>
+      </div>
+      <div class="about-point">
+        <h3>The Content Pipeline</h3>
+        <p>I specialize in the unfiltered. I conceptualize candid, long-form brand content to capture a positioning most modern brands are missing, and systematically clip that down into native short-form skits and reels.</p>
+      </div>
+      <div class="about-links">
+        <a href="https://www.linkedin.com/in/amandeep-kaur-64a937295/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.behance.net/amandeep-kaur" target="_blank" rel="noopener">Behance</a>
+        <span>adkaur1605@gmail.com</span>
+      </div>
+    </div>
+
+    <!-- Parallax Resume Section -->
+    <div class="resume-parallax-section">
+      <div class="resume-card-wrap">
+        <a href="portfolio-media/resume-portfolio/Amandeep Kaur — Resume.pdf" target="_blank" rel="noopener" class="resume-download-centered">Download Resume (PDF)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  /* ---------- Keep --header-h accurate so full-height sections (Hats, Play)
+     never sit under/over the actual sticky header across breakpoints ---------- */
+  const headerEl = document.querySelector('header');
+  function syncHeaderHeight(){
+    document.documentElement.style.setProperty('--header-h', headerEl.offsetHeight + 'px');
+  }
+  syncHeaderHeight();
+  window.addEventListener('resize', syncHeaderHeight);
+  window.addEventListener('orientationchange', syncHeaderHeight);
+
+  /* ---------- Hats strips: hover-reveal has no equivalent on touch devices,
+     so give touch users a tap-to-expand accordion (one open at a time per group) ---------- */
+  if (matchMedia('(hover: none)').matches) {
+    function makeTapAccordion(selector){
+      const items = document.querySelectorAll(selector);
+      items.forEach(el => {
+        el.addEventListener('click', () => {
+          const wasOpen = el.classList.contains('is-open');
+          items.forEach(i => i.classList.remove('is-open'));
+          if (!wasOpen) el.classList.add('is-open');
+        });
+      });
+    }
+    makeTapAccordion('.strip');
+    makeTapAccordion('.hats-footer-strip');
+  }
+
+  const links = document.querySelectorAll('[data-page]');
+  const pages = document.querySelectorAll('.page');
+  const navLinks = document.querySelectorAll('nav a');
+
+  // Navigate to a page and optionally update the browser history state smoothly
+  function goTo(id, pushState = true){
+    pages.forEach(p => p.classList.toggle('active', p.id === id));
+    navLinks.forEach(a => a.classList.toggle('active', a.dataset.page === id));
+    window.scrollTo(0,0);
+    
+    if (pushState) {
+      const targetHash = `#${id}`;
+      if (window.location.hash !== targetHash) {
+        history.pushState({ pageId: id }, '', targetHash);
+      }
+    }
+  }
+
+  // Intercept all page links to use internal navigation
+  links.forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      goTo(el.dataset.page);
+    });
+  });
+
+  // Handle the browser's Back/Forward buttons smoothly without glitching to hats
+  window.addEventListener('popstate', (e) => {
+    const hash = window.location.hash.substring(1);
+    if (hash && document.getElementById(hash)) {
+      goTo(hash, false);
+    } else {
+      goTo('hats', false);
+    }
+  });
+
+  // Initialize the correct view immediately on load based on URL hash to prevent any flash/glitch
+  window.addEventListener('DOMContentLoaded', () => {
+    const hash = window.location.hash.substring(1);
+    if (hash && document.getElementById(hash)) {
+      goTo(hash, false);
+    } else {
+      goTo('hats', false);
+      history.replaceState({ pageId: 'hats' }, '', '#hats');
+    }
+  });
+
+  /* ---------- LOGO: type in/out between Aman → Amandeep → Amandeep Kaur ---------- */
+  const logoTextEl = document.getElementById('logoText');
+  const fullName = 'Amandeep Kaur';
+  const shortName = 'Aman';
+  const minLen = shortName.length;
+
+  let len = minLen;
+  let typingForward = true;
+
+  function typeStep(){
+    logoTextEl.textContent = fullName.slice(0, len);
+
+    if(typingForward){
+      if(len >= fullName.length){
+        typingForward = false;
+        setTimeout(typeStep, 1100); 
+        return;
+      }
+      len++;
+      setTimeout(typeStep, 110);
+    } else {
+      if(len <= minLen){
+        typingForward = true;
+        setTimeout(typeStep, 900); 
+        return;
+      }
+      len--;
+      setTimeout(typeStep, 70);
+    }
+  }
+  setTimeout(typeStep, 900);
+
+  /* ---------- PLAY: Pseudo-infinite non-overlapping canvas with unclipped assets & randomized draft blocks ---------- */
+  const playSourceAssets = [
+    { type: 'img', src: 'portfolio-media/play/#1.png', w: 240, h: 280 },
+    { type: 'img', src: 'portfolio-media/play/#2.png', w: 260, h: 180 },
+    { type: 'img', src: 'portfolio-media/play/#OOTD.gif', w: 220, h: 220 },
+    { type: 'img', src: 'portfolio-media/play/1.png', w: 280, h: 200 },
+    { type: 'img', src: 'portfolio-media/play/12.png', w: 210, h: 300 },
+    { type: 'img', src: 'portfolio-media/play/2.png', w: 250, h: 180 },
+    { type: 'img', src: 'portfolio-media/play/3.png', w: 230, h: 230 },
+    { type: 'img', src: 'portfolio-media/play/5 Tracks, 5 Opportunities (1).png', w: 300, h: 180 },
+    { type: 'img', src: 'portfolio-media/play/B. Apoc (16).png', w: 230, h: 280 },
+    { type: 'img', src: 'portfolio-media/play/Black Pixeled Abstract Out of Office Instagram Post (28).png', w: 250, h: 250 },
+    { type: 'img', src: 'portfolio-media/play/Black Pixeled Abstract Out of Office Instagram Post (32).png', w: 240, h: 220 },
+    { type: 'img', src: 'portfolio-media/play/Copy of CHEERS (2).gif', w: 220, h: 220 },
+    { type: 'img', src: 'portfolio-media/play/Eclipse vs Black Hole.png', w: 280, h: 190 },
+    { type: 'img', src: 'portfolio-media/play/S1.png', w: 210, h: 260 },
+    { type: 'img', src: 'portfolio-media/play/SHINK! (6).png', w: 260, h: 170 },
+    { type: 'img', src: 'portfolio-media/play/Strike a Pose.png', w: 240, h: 280 },
+    { type: 'img', src: 'portfolio-media/play/Untitled design (11).png', w: 230, h: 230 },
+    { type: 'img', src: 'portfolio-media/play/Untitled design (17).png', w: 250, h: 200 },
+    { type: 'img', src: 'portfolio-media/play/Untitled design (24).png', w: 230, h: 250 },
+    { type: 'img', src: 'portfolio-media/play/Untitled design (26).png', w: 270, h: 180 },
+    { type: 'img', src: 'portfolio-media/play/blinkit4.png', w: 220, h: 240 },
+    { type: 'img', src: 'portfolio-media/play/comic example.png', w: 290, h: 200 },
+    { type: 'img', src: 'portfolio-media/play/eyes.gif', w: 230, h: 230 },
+    { type: 'img', src: 'portfolio-media/play/image (1).png', w: 250, h: 220 },
+    { type: 'img', src: 'portfolio-media/play/panel2.png', w: 270, h: 190 },
+    { type: 'img', src: 'portfolio-media/play/bin-peep.png', w: 230, h: 280 },
+    { type: 'img', src: 'portfolio-media/play/plant-a-star.png', w: 260, h: 210 },
+    { type: 'img', src: 'portfolio-media/play/so done.png', w: 240, h: 240 },
+    { type: 'solid', color: '#e8180c', label: 'Draft Concept 01', w: 250, h: 180 },
+    { type: 'solid', color: '#0b0b0b', label: 'Work in Progress', w: 240, h: 250 },
+    { type: 'solid', color: '#e6197a', label: 'Rough Ideas', w: 260, h: 190 },
+    { type: 'solid', color: '#1c3f5f', label: 'Unfiltered Wireframe', w: 270, h: 180 },
+    { type: 'solid', color: '#f2c200', label: 'Study Archive', w: 240, h: 210 },
+    { type: 'solid', color: '#2b2b2b', label: 'Design Note', w: 250, h: 220 },
+    { type: 'solid', color: '#4fd1a5', label: 'Loose Sketch', w: 230, h: 200 },
+    { type: 'solid', color: '#7a5cff', label: 'Color Test', w: 260, h: 230 }
+  ];
+
+  for (let i = playSourceAssets.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [playSourceAssets[i], playSourceAssets[j]] = [playSourceAssets[j], playSourceAssets[i]];
+  }
+
+  const singleLayerEl = document.getElementById('singleLayer');
+  const cols = 6;
+  const colWidth = 420;   
+  const rowHeight = 360;  
+  const jitter = 45;      
+  const totalRows = Math.ceil(playSourceAssets.length / cols);
+  const blockW = cols * colWidth;
+  const blockH = totalRows * rowHeight;
+
+  function buildBlockTiles(){
+    const tiles = [];
+    let index = 0;
+    for (let row = 0; row < totalRows; row++) {
+      for (let col = 0; col < cols; col++) {
+        if (index >= playSourceAssets.length) break;
+        const asset = playSourceAssets[index++];
+        tiles.push({
+          asset,
+          x: col * colWidth + (colWidth - asset.w) / 2 + (Math.random() - 0.5) * jitter * 2,
+          y: row * rowHeight + (rowHeight - asset.h) / 2 + (Math.random() - 0.5) * jitter * 2,
+          rotate: (Math.random() - 0.5) * 8 
+        });
+      }
+    }
+    return tiles;
+  }
+  const blockTiles = buildBlockTiles();
+
+  function makeTileEl(tile, offsetX, offsetY){
+    const { asset } = tile;
+    const div = document.createElement('div');
+    div.className = 'canvas-tile';
+    div.style.left = (tile.x + offsetX) + 'px';
+    div.style.top = (tile.y + offsetY) + 'px';
+    div.style.width = asset.w + 'px';
+    div.style.height = asset.h + 'px';
+    div.style.transform = `rotate(${tile.rotate}deg)`;
+
+    if (asset.type === 'solid') {
+      const fill = document.createElement('div');
+      fill.className = 'draft-solid-fill';
+      fill.style.background = asset.color;
+      fill.textContent = asset.label;
+      div.appendChild(fill);
+    } else {
+      const img = document.createElement('img');
+      img.src = asset.src;
+      img.alt = 'Play asset';
+      div.appendChild(img);
+    }
+    return div;
+  }
+
+  const loopFrag = document.createDocumentFragment();
+  for (let oy = -1; oy <= 1; oy++) {
+    for (let ox = -1; ox <= 1; ox++) {
+      blockTiles.forEach(tile => {
+        loopFrag.appendChild(makeTileEl(tile, ox * blockW, oy * blockH));
+      });
+    }
+  }
+  singleLayerEl.appendChild(loopFrag);
+
+  const viewport = document.getElementById('canvasViewport');
+  let panX = 0, panY = 0;
+  let dragging = false;
+  let lastX = 0, lastY = 0;
+
+  function wrap(value, size){
+    return ((value % size) + size) % size;
+  }
+
+  function renderSingle(){
+    const wx = wrap(panX, blockW) - blockW;
+    const wy = wrap(panY, blockH) - blockH;
+    singleLayerEl.style.transform = `translate3d(${wx}px, ${wy}px, 0)`;
+  }
+  renderSingle();
+
+  function startDrag(x, y){
+    dragging = true;
+    lastX = x; lastY = y;
+    viewport.classList.add('grabbing');
+  }
+  function moveDrag(x, y){
+    if(!dragging) return;
+    panX += (x - lastX);
+    panY += (y - lastY);
+    lastX = x; lastY = y;
+    renderSingle();
+  }
+  function endDrag(){
+    dragging = false;
+    viewport.classList.remove('grabbing');
+  }
+
+  viewport.addEventListener('pointerdown', (e) => {
+    viewport.setPointerCapture(e.pointerId);
+    startDrag(e.clientX, e.clientY);
+  });
+  viewport.addEventListener('pointermove', (e) => moveDrag(e.clientX, e.clientY));
+  viewport.addEventListener('pointerup', endDrag);
+  viewport.addEventListener('pointercancel', endDrag);
+  viewport.addEventListener('pointerleave', endDrag);
+
+  viewport.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    panX -= e.deltaX;
+    panY -= e.deltaY;
+    renderSingle();
+  }, { passive:false });
+</script>
+
+</body>
+</html>
