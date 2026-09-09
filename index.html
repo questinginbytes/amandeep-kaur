@@ -613,9 +613,10 @@
 
   /* ================= PHONE (≤640px) ================= */
   @media (max-width:640px){
-    header{ padding:14px 16px; }
-    .logo{ font-size:1.7rem; }
-    nav ul{ gap:14px; }
+    header{ padding:14px 16px; flex-direction:column; justify-content:center; gap:10px; }
+    .logo{ font-size:1.7rem; width:100%; text-align:center; }
+    nav{ width:100%; }
+    nav ul{ justify-content:center; gap:14px; }
     nav a{ font-size:0.8rem; }
 
     /* Hats: hover-reveal has no touch equivalent. On phone, strips stack
@@ -950,7 +951,7 @@
     </div>
 
     <!-- 1st GIF -->
-    <img class="project-media-auto" src="portfolio-media/zudio-re-imagined/#OOTD.gif" alt="OOTD GIF">
+    <img class="project-media-auto" src="portfolio-media/zudio-re-imagined/all-pics.gif" alt="OOTD GIF">
 
     <!-- Last GIF -->
     <img class="project-media-auto" src="portfolio-media/zudio-re-imagined/Strike a Pose (2).gif" alt="Strike a Pose GIF">
