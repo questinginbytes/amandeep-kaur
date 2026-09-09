@@ -4,6 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Amandeep Kaur — Portfolio</title>
+
+<!-- Share Preview Metadata -->
+<meta name="description" content="Amandeep Kaur — Creative strategy & design portfolio.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://questinginbytes.github.io/amandeep-kaur/">
+<meta property="og:title" content="Amandeep Kaur — Portfolio">
+<meta property="og:description" content="Creative strategy & design portfolio.">
+<meta property="og:image" content="https://questinginbytes.github.io/amandeep-kaur/portfolio-media/thumbnail-images/Strike%20a%20Pose.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Amandeep Kaur — Portfolio">
+<meta name="twitter:description" content="Creative strategy & design portfolio.">
+<meta name="twitter:image" content="https://questinginbytes.github.io/amandeep-kaur/portfolio-media/thumbnail-images/Strike%20a%20Pose.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -416,7 +428,7 @@
     padding-right:16px;
   }
   
-  /* Media Elements - Natural Dimension Adaptation (No Cropping) */
+  /* Media Elements */
   .project-media-auto {
     width: 100%;
     height: auto;
@@ -574,7 +586,7 @@
   .resume-card-wrap {
     max-width: 600px;
     width: 100%;
-    aspect-ratio: 1 / 1.414; /* Standard US Letter / A4 aspect ratio matching resume dimensions */
+    aspect-ratio: 1 / 1.414;
     background: var(--white);
     padding: 40px 20px;
     border-radius: 4px;
@@ -619,12 +631,7 @@
     nav ul{ justify-content:center; gap:14px; }
     nav a{ font-size:0.8rem; }
 
-    /* Hats: hover-reveal has no touch equivalent. On phone, strips stack
-       vertically and together fill the full screen height (equal split),
-       just like the full-bleed row on desktop. Tapping one grows it —
-       flex-basis:auto lets it size to its full content first, so text is
-       never clipped, and the page scrolls in the rare case content needs
-       more room than the screen offers. */
+    /* Hats */
     .hats-page-wrap{ overflow-y:auto; }
     .strip-row{ flex-direction:column; overflow:visible; }
     .strip{ flex:1 1 0; min-width:0; width:100%; overflow:visible; }
@@ -1439,8 +1446,7 @@
 </section>
 
 <script>
-  /* ---------- Keep --header-h accurate so full-height sections (Hats, Play)
-     never sit under/over the actual sticky header across breakpoints ---------- */
+  /* ---------- HEADER HEIGHT ---------- */
   const headerEl = document.querySelector('header');
   function syncHeaderHeight(){
     document.documentElement.style.setProperty('--header-h', headerEl.offsetHeight + 'px');
@@ -1449,8 +1455,7 @@
   window.addEventListener('resize', syncHeaderHeight);
   window.addEventListener('orientationchange', syncHeaderHeight);
 
-  /* ---------- Hats strips: hover-reveal has no equivalent on touch devices,
-     so give touch users a tap-to-expand accordion (one open at a time per group) ---------- */
+  /* ---------- HATS: TAP ACCORDION (TOUCH) ---------- */
   if (matchMedia('(hover: none)').matches) {
     function makeTapAccordion(selector){
       const items = document.querySelectorAll(selector);
@@ -1545,7 +1550,7 @@
   }
   setTimeout(typeStep, 900);
 
-  /* ---------- PLAY: Pseudo-infinite non-overlapping canvas with unclipped assets & randomized draft blocks ---------- */
+  /* ---------- PLAY ---------- */
   const playSourceAssets = [
     { type: 'img', src: 'portfolio-media/play/#1.png', w: 240, h: 280 },
     { type: 'img', src: 'portfolio-media/play/#2.png', w: 260, h: 180 },
